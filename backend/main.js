@@ -71,6 +71,9 @@ app.use('/', express.static(path.join(path.resolve(), '../frontend/dist')));
     roomModel.hasMany(diceRollModel, {
         foreignKey: 'roomId',
     });
+    roomModel.belongsTo(userModel, {
+        foreignKey: 'ownerId',
+    });
     userModel.hasMany(chatMessageModel, {
         foreignKey: 'userId',
     });

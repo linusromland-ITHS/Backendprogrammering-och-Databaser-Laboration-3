@@ -6,6 +6,7 @@ const router = express.Router();
 
 //Routes definition
 router.use('/', require('./login.routes'));
+router.use('/room', require('./room.routes'));
 
 router.get('/', async (req, res) => {
     res.json({
