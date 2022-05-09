@@ -4,10 +4,11 @@
 			<h1 class="text-3xl font-semibold border-b py-2">{{ data.name }}</h1>
 			<div class="w-full flex flex-wrap">
 				<div class="w-full md:w-1/2">
-					<h2>DiceGame</h2>
+					<h2 class="text-2xl font-semibold">DiceGame</h2>
+					<Dice />
 				</div>
 				<div class="w-full md:w-1/2">
-					<h2>Chat</h2>
+					<h2 class="text-2xl font-semibold">Chat</h2>
 					<Chat />
 				</div>
 			</div>
@@ -16,11 +17,13 @@
 </template>
 <script>
 	import Chat from '../components/Chat.vue';
+	import Dice from '../components/Dice.vue';
 
 	export default {
 		name: 'Room',
 		components: {
 			Chat,
+			Dice,
 		},
 		data() {
 			return {
