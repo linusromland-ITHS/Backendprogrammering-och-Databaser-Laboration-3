@@ -32,6 +32,13 @@
 		},
 		mounted() {
 			this.getRoom();
+
+			this.sockets.subscribe(this.$route.params.roomId, function (data) {
+				console.log(data);
+			});
+		},
+		beforeUnmount() {
+			this.sockets.unsubscribe(this.$route.params.roomId);
 		},
 	};
 </script>

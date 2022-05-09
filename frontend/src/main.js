@@ -2,6 +2,8 @@
 import { createApp } from 'vue';
 import Toast from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
+import VueSocketIO from 'vue-3-socket.io';
+import io from 'socket.io-client';
 
 //Internal Dependencies import:
 import App from './App.vue';
@@ -22,6 +24,10 @@ app.use(Toast, {
 	timeout: 2500,
 	hideProgressBar: true,
 });
+
+//Registers Socket.IO
+const socketio = new VueSocketIO({ connection: io(window.location.origin) });
+app.use(socketio);
 
 //Mounts app to div with id app
 app.mount('#app');
