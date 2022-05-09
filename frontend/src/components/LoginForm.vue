@@ -18,7 +18,7 @@
 				</button>
 			</nav>
 			<div class="flex flex-col items-center" v-if="activeLogin">
-				<h1 class="text-2xl font-bold">Login</h1>
+				<h1 class="text-2xl font-bold mb-2">Login</h1>
 				<form class="flex flex-col items-center w-full" @submit.prevent="login">
 					<input
 						type="text"
@@ -45,7 +45,7 @@
 				</form>
 			</div>
 			<div class="flex flex-col items-center" v-else>
-				<h1 class="text-2xl font-bold">Register</h1>
+				<h1 class="text-2xl font-bold mb-2">Register</h1>
 				<form class="flex flex-col items-center w-full" @submit.prevent="register">
 					<input
 						type="text"
@@ -123,6 +123,11 @@
 			async login() {
 				const toast = useToast();
 
+				if (this.emailLogin === '' || this.passwordLogin === '') {
+					this.errorLogin = 'Please fill in all fields';
+					return;
+				}
+
 				const request = await fetch('/api/login', {
 					method: 'POST',
 					headers: {
@@ -143,6 +148,17 @@
 			},
 			async register() {
 				const toast = useToast();
+
+				if (
+					this.usernameRegister === '' ||
+					this.emailRegister === '' ||
+					this.emailConfirmRegister === '' ||
+					this.passwordRegister === '' ||
+					this.passwordConfirmRegister === ''
+				) {
+					this.errorRegister = 'Please fill in all fields';
+					return;
+				}
 
 				if (this.emailRegister !== this.emailConfirmRegister) {
 					this.errorRegister = 'Email does not match';
