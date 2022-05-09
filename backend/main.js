@@ -10,6 +10,7 @@ const ip = require('ip');
 
 //Internal Dependencies
 const { connectToMySQL, sequelize } = require('./config/mysqlConnection.js');
+const { initializePassport, passport } = require('./config/passport.js');
 
 //Variable declaration
 const app = express();
@@ -33,6 +34,8 @@ app.use(
 //Middleware
 app.use(express.json());
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((err, _req, res, _next) => {
     res.status(400).json({
@@ -77,6 +80,9 @@ app.use('/', express.static(path.join(path.resolve(), '../frontend/dist')));
 
     //Sync models
     await sequelize.sync();
+
+    //Initialize passport
+    initializePassport();
 
     app.listen(port, () => {
         console.log(
