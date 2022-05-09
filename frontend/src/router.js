@@ -20,7 +20,7 @@ const router = createRouter({
 
 router.beforeEach((to, _from, next) => {
 	//Before each route, updates the title of page to match name attribute of route
-	document.title = `${String(to.name)}`;
+	document.title = `${String(to.name)} | DiceGame`;
 
 	next();
 });
