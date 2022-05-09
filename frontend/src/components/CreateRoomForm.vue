@@ -4,13 +4,17 @@
 			<div class="flex flex-col items-center">
 				<h1 class="text-2xl font-bold mb-2">Create new room</h1>
 				<form class="flex flex-col items-center w-full" @submit.prevent="createRoom">
-					<input
-						type="text"
-						name="roomName"
-						class="border border-gray-200 p-2 mb-4 rounded-md w-4/6"
-						placeholder="Room name"
-						v-model="name"
-					/>
+					<div class="flex flex-col w-4/6">
+						<label class="text-sm font-bold" for="roomName">Room name:</label>
+
+						<input
+							type="text"
+							id="roomName"
+							class="border border-gray-200 p-2 mb-4 rounded-md"
+							placeholder="Room name"
+							v-model="name"
+						/>
+					</div>
 					<p class="text-red-500 text-md mb-4 italic" v-if="error">
 						{{ error }}
 					</p>
