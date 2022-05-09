@@ -3,7 +3,7 @@
 		<ul>
 			<li v-for="(message, index) in messages" :key="index">
 				<p>
-					<span class="font-bold">{{ message.user.username }}:</span>{{ message.message }}
+					<span class="font-bold">{{ message.user.username }}:</span> {{ message.message }}
 				</p>
 			</li>
 		</ul>
