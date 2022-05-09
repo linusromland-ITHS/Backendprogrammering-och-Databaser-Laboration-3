@@ -8,6 +8,7 @@ const router = express.Router();
 router.use('/', require('./login.routes'));
 router.use('/room', require('./room.routes'));
 router.use('/message', require('./message.routes'));
+router.use('/dice', require('./dice.routes'));
 
 router.get('/', async (req, res) => {
     res.json({

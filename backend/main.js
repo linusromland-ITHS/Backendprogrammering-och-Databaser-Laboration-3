@@ -26,6 +26,7 @@ socketIOSetup(server);
 const chatMessageModel = require('./models/chatMessage');
 const roomModel = require('./models/room');
 const userModel = require('./models/user');
+const diceRollModel = require('./models/diceRoll');
 
 //Session configuration
 app.use(
@@ -64,19 +65,31 @@ app.use('/', express.static(path.join(path.resolve(), '../frontend/dist')));
     console.log('Connection to MySQL has been established successfully.');
 
     //Establish relations between models
+    roomModel.belongsTo(userModel, {
+        foreignKey: 'ownerId',
+    });
     chatMessageModel.belongsTo(userModel, {
         foreignKey: 'userId',
     });
     chatMessageModel.belongsTo(roomModel, {
         foreignKey: 'roomId',
     });
-    roomModel.belongsTo(userModel, {
-        foreignKey: 'ownerId',
-    });
     roomModel.hasMany(chatMessageModel, {
         foreignKey: 'roomId',
     });
     userModel.hasMany(chatMessageModel, {
+        foreignKey: 'userId',
+    });
+    diceRollModel.belongsTo(userModel, {
+        foreignKey: 'userId',
+    });
+    diceRollModel.belongsTo(roomModel, {
+        foreignKey: 'roomId',
+    });
+    roomModel.hasMany(diceRollModel, {
+        foreignKey: 'roomId',
+    });
+    userModel.hasMany(diceRollModel, {
         foreignKey: 'userId',
     });
 
