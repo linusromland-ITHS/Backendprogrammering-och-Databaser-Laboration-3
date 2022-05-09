@@ -1,10 +1,19 @@
 <template>
-	<div class="w-full">
+	<div class="w-full bg-slate-200 rounded-md p-4 h-full flex flex-col justify-between">
 		<ul>
-			<li v-for="(message, index) in messages" :key="index">
-				<p>
+			<li
+				v-for="(message, index) in messages"
+				:key="index"
+				class="flex justify-between w-full p-2"
+				:class="{ 'border-b border-slate-400': messages.length - 1 != index }"
+			>
+				<p class="text-lg">
 					<span class="font-bold">{{ message.user.username }}:</span> {{ message.message }}
 				</p>
+				<p class="text-sm">{{ convertToTime(message.createdAt) }}</p>
+			</li>
+			<li v-if="messages.length <= 0">
+				<p class="text-center text-lg">No messages yet</p>
 			</li>
 		</ul>
 		<input
@@ -20,6 +29,7 @@
 <script>
 	export default {
 		name: 'Chat',
+		inject: ['dayjs'], //Injects dayjs dependency
 		data() {
 			return {
 				messages: [],
@@ -46,6 +56,9 @@
 				const response = await fetch('/api/user');
 				const data = await response.json();
 				this.user = data.user;
+			},
+			convertToTime(date) {
+				return this.dayjs(date).fromNow();
 			},
 		},
 		mounted() {

@@ -22,18 +22,19 @@ exports.calculateDiceTopList = (diceRolls) => {
     Object.keys(diceRollsByUser).forEach((userId) => {
         diceRollsByUser[userId].averageValue /= diceRollsByUser[userId].numberOfRolls;
     });
-    //Sort diceRollsByUser by highest value
-    const sortedDiceRollsByUser = Object.keys(diceRollsByUser).map((userId) => {
-        return {
-            userId: userId,
-            highestValue: diceRollsByUser[userId].highestValue,
-            averageValue: Math.round(diceRollsByUser[userId].averageValue * 100) / 100,
-            numberOfRolls: diceRollsByUser[userId].numberOfRolls,
-            username: diceRollsByUser[userId].username,
-        };
+
+    const diceRollsByUserSorted = Object.keys(diceRollsByUser)
+        .map((userId) => {
+            return diceRollsByUser[userId];
+        })
+        .sort((a, b) => {
+            return b.averageValue - a.averageValue;
+        });
+
+    //Round average value to two decimals
+    diceRollsByUserSorted.forEach((user) => {
+        user.averageValue = Math.round(user.averageValue * 100) / 100;
     });
-    sortedDiceRollsByUser.sort((a, b) => {
-        return b.highestValue - a.highestValue;
-    });
-    return sortedDiceRollsByUser;
+
+    return diceRollsByUserSorted;
 };

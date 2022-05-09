@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-cyan-500 w-full">
+	<div class="bg-cyan-500 w-full" id="navbar">
 		<nav class="flex items-center justify-center md:justify-between flex-wrap p-6">
 			<div class="hidden md:flex items-center flex-shrink-0 text-white mr-6">
 				<router-link to="/" class="text-xl font-bold">DiceGame</router-link>

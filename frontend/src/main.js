@@ -4,6 +4,8 @@ import Toast from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 import VueSocketIO from 'vue-3-socket.io';
 import io from 'socket.io-client';
+import dayjs from 'dayjs';
+import RelativeTime from 'dayjs/plugin/relativeTime';
 
 //Internal Dependencies import:
 import App from './App.vue';
@@ -15,6 +17,12 @@ const app = createApp(App);
 
 //Registers vue-router
 app.use(router);
+
+//Imports RelativeTime plugin for dayjs
+dayjs.extend(RelativeTime);
+
+//Provide dayjs
+app.provide('dayjs', dayjs);
 
 //Registers vue-toastification
 app.use(Toast, {

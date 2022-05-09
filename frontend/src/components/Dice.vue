@@ -24,12 +24,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(data, index) in values" :key="index">
+					<tr v-for="(data, index) in values" :key="data">
 						<td class="text-left p-2">{{ index + 1 }}</td>
 						<td class="text-left p-2">{{ data.username }}</td>
 						<td class="text-left p-2">{{ data.highestValue }}</td>
 						<td class="text-left p-2">{{ data.averageValue }}</td>
 						<td class="text-left p-2">{{ data.numberOfRolls }}</td>
+					</tr>
+					<tr v-if="values.length <= 0">
+						<td colspan="5" class="text-center text-lg">No dice rolled yet</td>
 					</tr>
 				</tbody>
 			</table>
@@ -38,11 +41,13 @@
 </template>
 
 <script>
+	import { useToast } from 'vue-toastification';
+
 	export default {
 		name: 'Dice',
 		data() {
 			return {
-				dice: null,
+				dice: '/dice/dice.png',
 				values: [],
 			};
 		},
@@ -69,9 +74,14 @@
 			},
 		},
 		mounted() {
+			const toast = useToast();
+
 			this.getValues();
 
-			this.sockets.subscribe(`diceRoll-${this.$route.params.roomId}`, function (data) {
+			this.sockets.subscribe(`diceRoll-${this.$route.params.roomId}`, async function (data) {
+				if (this.values.length > 0 && data.length > 0 && this.values[0].username != data[0].username)
+					toast.info(`${data[0].username} has taken the top spot!`);
+
 				this.values = data;
 			});
 		},
