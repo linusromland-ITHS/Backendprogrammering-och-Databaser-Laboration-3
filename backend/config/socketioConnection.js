@@ -1,10 +1,10 @@
 //External Dependencies import:
 const socketIO = require('socket.io');
 
-let io;
+//Local Dependencies import:
+const { socketRoutes } = require('../routes/socket.routes');
 
 exports.socketIOSetup = (server) => {
-    io = socketIO(server); //Create Socket.io Server
+    const io = socketIO(server); //Create Socket.io Server
+    socketRoutes(io); //Register Socket.io Routes
 };
-
-exports.io = io;

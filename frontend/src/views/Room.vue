@@ -8,14 +8,20 @@
 				</div>
 				<div class="w-full md:w-1/2">
 					<h2>Chat</h2>
+					<Chat />
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
+	import Chat from '../components/Chat.vue';
+
 	export default {
 		name: 'Room',
+		components: {
+			Chat,
+		},
 		data() {
 			return {
 				data: {},
