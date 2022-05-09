@@ -3,6 +3,7 @@ const express = require('express');
 
 //Local Dependencies import
 const roomModel = require('../models/room');
+const userModel = require('../models/user');
 const { checkAuthenticated } = require('../config/auth');
 
 //Variable declaration
@@ -14,7 +15,7 @@ router.get('/', checkAuthenticated, async (req, res) => {
         const room = await roomModel.findOne({ where: { id: id } });
         if (room) return res.json({ success: true, room });
     }
-    const rooms = await roomModel.findAll();
+    const rooms = await roomModel.findAll({ include: [userModel] });
     if (rooms) {
         res.json({
             success: true,
