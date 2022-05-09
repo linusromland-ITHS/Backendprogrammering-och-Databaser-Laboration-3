@@ -20,20 +20,27 @@
 			<div class="flex flex-col items-center" v-if="activeLogin">
 				<h1 class="text-2xl font-bold mb-2">Login</h1>
 				<form class="flex flex-col items-center w-full" @submit.prevent="login">
-					<input
-						type="text"
-						name="email"
-						class="border border-gray-200 p-2 mb-4 rounded-md w-4/6"
-						placeholder="Email"
-						v-model="emailLogin"
-					/>
-					<input
-						type="password"
-						name="password"
-						class="border border-gray-200 p-2 mb-4 rounded-md w-4/6"
-						placeholder="Password"
-						v-model="passwordLogin"
-					/>
+					<div class="flex flex-col w-4/6">
+						<label class="text-sm font-bold" for="email">Email:</label>
+						<input
+							type="text"
+							id="email"
+							class="border border-gray-200 p-2 mb-4 rounded-md"
+							placeholder="Email"
+							v-model="emailLogin"
+						/>
+					</div>
+					<div class="flex flex-col w-4/6">
+						<label class="text-sm font-bold" for="passwordLogin">Password:</label>
+
+						<input
+							type="password"
+							id="passwordLogin"
+							class="border border-gray-200 p-2 mb-4 rounded-md"
+							placeholder="Password"
+							v-model="passwordLogin"
+						/>
+					</div>
 					<p class="text-red-500 text-md mb-4 italic" v-if="errorLogin">
 						{{ errorLogin }}
 					</p>
@@ -47,40 +54,60 @@
 			<div class="flex flex-col items-center" v-else>
 				<h1 class="text-2xl font-bold mb-2">Register</h1>
 				<form class="flex flex-col items-center w-full" @submit.prevent="register">
-					<input
-						type="text"
-						name="username"
-						class="border border-gray-200 p-2 mb-4 rounded-md w-4/6"
-						placeholder="Username"
-						v-model="usernameRegister"
-					/>
-					<input
-						type="text"
-						name="email"
-						class="border border-gray-200 p-2 mb-4 rounded-md w-4/6"
-						placeholder="Email"
-						v-model="emailRegister"
-					/>
-					<input
-						type="text"
-						name="email"
-						class="border border-gray-200 p-2 mb-4 rounded-md w-4/6"
-						placeholder="Confirm Email"
-						v-model="emailConfirmRegister"
-					/>
-					<input
-						type="password"
-						name="password"
-						class="border border-gray-200 p-2 mb-4 rounded-md w-4/6"
-						placeholder="Password"
-						v-model="passwordRegister"
-					/><input
-						type="password"
-						name="password"
-						class="border border-gray-200 p-2 mb-4 rounded-md w-4/6"
-						placeholder="Confirm Password"
-						v-model="passwordConfirmRegister"
-					/>
+					<div class="flex flex-col w-4/6">
+						<label class="text-sm font-bold" for="username">Username:</label>
+
+						<input
+							type="text"
+							id="username"
+							class="border border-gray-200 p-2 mb-4 rounded-md"
+							placeholder="Username"
+							v-model="usernameRegister"
+						/>
+					</div>
+					<div class="flex flex-col w-4/6">
+						<label class="text-sm font-bold" for="emailRegister">Email:</label>
+
+						<input
+							type="text"
+							id="emailRegister"
+							class="border border-gray-200 p-2 mb-4 rounded-md"
+							placeholder="Email"
+							v-model="emailRegister"
+						/>
+					</div>
+					<div class="flex flex-col w-4/6">
+						<label class="text-sm font-bold" for="emailConfirmRegister">Confirm Email:</label>
+
+						<input
+							type="text"
+							id="emailConfirmRegister"
+							class="border border-gray-200 p-2 mb-4 rounded-md"
+							placeholder="Confirm Email"
+							v-model="emailConfirmRegister"
+						/>
+					</div>
+					<div class="flex flex-col w-4/6">
+						<label class="text-sm font-bold" for="passwordRegister">Password:</label>
+
+						<input
+							type="password"
+							id="passwordRegister"
+							class="border border-gray-200 p-2 mb-4 rounded-md"
+							placeholder="Password"
+							v-model="passwordRegister"
+						/>
+					</div>
+					<div class="flex flex-col w-4/6">
+						<label class="text-sm font-bold" for="passwordConfirmRegister">Confirm Password:</label>
+						<input
+							type="password"
+							id="passwordConfirmRegister"
+							class="border border-gray-200 p-2 mb-4 rounded-md"
+							placeholder="Confirm Password"
+							v-model="passwordConfirmRegister"
+						/>
+					</div>
 					<p class="text-red-500 text-md mb-4 italic" v-if="errorRegister">
 						{{ errorRegister }}
 					</p>
