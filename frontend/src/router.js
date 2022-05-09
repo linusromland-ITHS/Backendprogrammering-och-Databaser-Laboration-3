@@ -9,6 +9,12 @@ const router = createRouter({
 			component: () => import('./views/Home.vue'),
 			path: '/',
 		},
+		{
+			// Room Route
+			name: 'Room',
+			component: () => import('./views/Room.vue'),
+			path: '/room/:roomId',
+		},
 	],
 });
 

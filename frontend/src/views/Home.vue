@@ -3,12 +3,12 @@
 		<button class="bg-gray-500 hover:bg-gray-600 text-white font-bold p-2" @click="showCreateRoomForm = true">Create new room</button>
 		<CreateRoomForm v-if="showCreateRoomForm" @created="created" @cancel="showCreateRoomForm = false" />
 		<ul class="flex flex-wrap justify-center">
-			<li
-				v-for="(room, index) in rooms"
-				:key="index"
-				class="w-10/12 md:w-3/12 p-2 m-2 rounded-md bg-slate-300 hover:bg-slate-200 transition duration-150 ease cursor-pointer"
-			>
-				{{ room.name }}
+			<li v-for="(room, index) in rooms" :key="index" class="w-10/12 md:w-3/12 m-2">
+				<router-link :to="`/room/${room.id}`">
+					<section class="w-full p-2 rounded-md bg-slate-300 hover:bg-slate-200 transition duration-150 ease cursor-pointer">
+						{{ room.name }}
+					</section>
+				</router-link>
 			</li>
 		</ul>
 	</div>
@@ -35,6 +35,9 @@
 			created() {
 				this.getRooms();
 				this.showCreateRoomForm = false;
+			},
+			navigateToRoom(roomId) {
+				this.$router.push({ path: `/room/${roomId}` });
 			},
 		},
 		mounted() {
