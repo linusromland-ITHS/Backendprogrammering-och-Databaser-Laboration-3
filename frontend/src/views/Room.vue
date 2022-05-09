@@ -25,22 +25,23 @@
 		data() {
 			return {
 				data: {},
+				user: {},
 			};
 		},
 		methods: {
 			async getRoom() {
 				const request = await fetch(`/api/room/?roomID=${this.$route.params.roomId}`);
 				const data = await request.json();
-				console.log(data);
 				if (data.success) this.data = data.room;
-				console.log(this.data);
 			},
 		},
 		mounted() {
 			this.getRoom();
 
 			this.sockets.subscribe(this.$route.params.roomId, function (data) {
-				console.log(data);
+				console.log({
+					message: data.message,
+				});
 			});
 		},
 		beforeUnmount() {

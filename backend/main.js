@@ -24,7 +24,6 @@ socketIOSetup(server);
 
 //Models import
 const chatMessageModel = require('./models/chatMessage');
-const diceRollModel = require('./models/diceRoll');
 const roomModel = require('./models/room');
 const userModel = require('./models/user');
 
@@ -68,22 +67,16 @@ app.use('/', express.static(path.join(path.resolve(), '../frontend/dist')));
     chatMessageModel.belongsTo(userModel, {
         foreignKey: 'userId',
     });
-    diceRollModel.belongsTo(userModel, {
-        foreignKey: 'userId',
-    });
-    roomModel.hasMany(chatMessageModel, {
-        foreignKey: 'roomId',
-    });
-    roomModel.hasMany(diceRollModel, {
+    chatMessageModel.belongsTo(roomModel, {
         foreignKey: 'roomId',
     });
     roomModel.belongsTo(userModel, {
         foreignKey: 'ownerId',
     });
-    userModel.hasMany(chatMessageModel, {
-        foreignKey: 'userId',
+    roomModel.hasMany(chatMessageModel, {
+        foreignKey: 'roomId',
     });
-    userModel.hasMany(diceRollModel, {
+    userModel.hasMany(chatMessageModel, {
         foreignKey: 'userId',
     });
 
