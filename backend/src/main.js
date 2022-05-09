@@ -8,6 +8,7 @@ const path = require('path');
 const session = require('express-session');
 const flash = require('express-flash');
 const ip = require('ip');
+const history = require('connect-history-api-fallback');
 
 //Internal Dependencies
 const { connectToMySQL, sequelize } = require('./config/mysqlConnection.js');
@@ -54,6 +55,7 @@ app.use((err, _req, res, _next) => {
 app.use('/api', require('./routes/api.js'));
 
 //Serve static files from the Vue app
+app.use(history());
 app.use('/', express.static(path.join(path.resolve(), '../frontend/dist')));
 
 (async () => {
