@@ -11,6 +11,29 @@
 				Roll Dice
 			</button>
 		</div>
+		<div class="mt-6">
+			<!--Table containg toplist for dice in values data-->
+			<table class="w-full bg-slate-200 rounded-md">
+				<thead>
+					<tr>
+						<th class="text-left p-2">Index</th>
+						<th class="text-left p-2">Username</th>
+						<th class="text-left p-2">Highest Value</th>
+						<th class="text-left p-2">Average Value</th>
+						<th class="text-left p-2">Number of rolls</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(data, index) in values" :key="index">
+						<td class="text-left p-2">{{ index + 1 }}</td>
+						<td class="text-left p-2">{{ data.username }}</td>
+						<td class="text-left p-2">{{ data.highestValue }}</td>
+						<td class="text-left p-2">{{ data.averageValue }}</td>
+						<td class="text-left p-2">{{ data.numberOfRolls }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </template>
 
@@ -41,12 +64,19 @@
 			async getValues() {
 				const request = await fetch(`/api/dice/${this.$route.params.roomId}/toplist`);
 				const data = await request.json();
-				this.values = data.values;
+				this.values = data.data;
 				console.log(data);
 			},
 		},
 		mounted() {
 			this.getValues();
+
+			this.sockets.subscribe(`diceRoll-${this.$route.params.roomId}`, function (data) {
+				this.values = data;
+			});
+		},
+		beforeUnmount() {
+			this.sockets.unsubscribe(`diceRoll-${this.$route.params.roomId}`);
 		},
 	};
 </script>

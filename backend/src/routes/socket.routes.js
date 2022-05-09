@@ -1,9 +1,12 @@
 //Local Dependencies import
 const ChatMessageModel = require('../models/chatMessage');
 const userModel = require('../models/user');
+let socketIO;
 
 exports.socketRoutes = (io) => {
-    io.on('connection', (socket) => {
+    socketIO = io;
+
+    socketIO.on('connection', (socket) => {
         socket.on('message', async (data) => {
             if (data.roomID && data.message && data.user.id) {
                 const chatMessage = await ChatMessageModel.create({
@@ -20,4 +23,8 @@ exports.socketRoutes = (io) => {
             }
         });
     });
+};
+
+exports.emitDiceRoll = (roomID, diceRolls) => {
+    socketIO.emit(`diceRoll-${roomID}`, diceRolls);
 };

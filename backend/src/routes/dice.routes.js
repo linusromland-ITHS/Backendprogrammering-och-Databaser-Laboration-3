@@ -5,6 +5,7 @@ const express = require('express');
 const diceRollModel = require('../models/diceRoll');
 const userModel = require('../models/user');
 const { calculateDiceTopList } = require('../dice');
+const { emitDiceRoll } = require('./socket.routes');
 const { checkAuthenticated } = require('../config/auth');
 
 //Variable declaration
@@ -45,10 +46,21 @@ router.post('/', checkAuthenticated, async (req, res) => {
         userId: await req.user.id,
         roomId: req.body.roomID,
     });
+
     const dice = await diceRollModel.findOne({
         where: { id: diceRoll.id },
         include: [userModel],
     });
+
+    const diceRolls = await diceRollModel.findAll({
+        where: {
+            roomId: req.body.roomID,
+        },
+        include: [userModel],
+    });
+
+    emitDiceRoll(req.body.roomID, calculateDiceTopList(diceRolls));
+
     res.json({
         success: true,
         data: dice,

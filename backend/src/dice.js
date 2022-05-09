@@ -7,6 +7,7 @@ exports.calculateDiceTopList = (diceRolls) => {
                 highestValue: diceRoll.value,
                 averageValue: diceRoll.value,
                 numberOfRolls: 1,
+                username: diceRoll.user.username,
             };
         } else {
             diceRollsByUser[diceRoll.userId].highestValue = Math.max(
@@ -26,8 +27,9 @@ exports.calculateDiceTopList = (diceRolls) => {
         return {
             userId: userId,
             highestValue: diceRollsByUser[userId].highestValue,
-            averageValue: diceRollsByUser[userId].averageValue,
+            averageValue: Math.round(diceRollsByUser[userId].averageValue * 100) / 100,
             numberOfRolls: diceRollsByUser[userId].numberOfRolls,
+            username: diceRollsByUser[userId].username,
         };
     });
     sortedDiceRollsByUser.sort((a, b) => {
