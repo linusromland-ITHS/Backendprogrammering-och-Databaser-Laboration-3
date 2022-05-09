@@ -5,9 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 //Routes definition
-router.use('/login', require('./login.routes'));
-router.use('/register', require('./register.routes'));
-router.use('/user', require('./user.routes'));
+router.use('/', require('./login.routes'));
 
 router.get('/', async (req, res) => {
     res.json({
