@@ -3,6 +3,7 @@ require('dotenv').config();
 
 //External Dependencies
 const express = require('express');
+const http = require('http');
 const path = require('path');
 const session = require('express-session');
 const flash = require('express-flash');
@@ -10,11 +11,16 @@ const ip = require('ip');
 
 //Internal Dependencies
 const { connectToMySQL, sequelize } = require('./config/mysqlConnection.js');
+const { socketIOSetup } = require('./config/socketioConnection.js');
 const { initializePassport, passport } = require('./config/passport.js');
 
 //Variable declaration
 const app = express();
 const port = process.env.PORT || 3000;
+
+//Configuring Socket.io
+const server = http.createServer(app);
+socketIOSetup(server);
 
 //Models import
 const chatMessageModel = require('./models/chatMessage');
@@ -87,7 +93,7 @@ app.use('/', express.static(path.join(path.resolve(), '../frontend/dist')));
     //Initialize passport
     initializePassport();
 
-    app.listen(port, () => {
+    server.listen(port, () => {
         console.log(
             `\nApp running at:\n- Local: \x1b[36mhttp://localhost:${port}/\x1b[0m\n- Network: \x1b[36mhttp://${ip.address()}:${port}/\x1b[0m\n\nTo run for production, run \x1b[36mnpm run start\x1b[0m`,
         );
