@@ -9,7 +9,7 @@ const { checkAuthenticated } = require('../config/auth');
 const router = express.Router();
 
 router.get('/', checkAuthenticated, async (req, res) => {
-    const id = req.query.id;
+    const id = req.query.roomID;
     if (id) {
         const room = await roomModel.findOne({ where: { id: id } });
         if (room) return res.json({ success: true, room });
