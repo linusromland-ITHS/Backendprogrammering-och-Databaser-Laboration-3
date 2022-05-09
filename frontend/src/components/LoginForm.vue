@@ -2,11 +2,16 @@
 	<Modal>
 		<div class="w-full rounded-md p-4">
 			<nav class="flex justify-center p-2 border-b">
-				<button class="bg-slate-300 transition ease duration-150 rounded-md px-4 py-1 mx-1" @click="activeLogin = true">
+				<button
+					class="bg-slate-200 hover:bg-slate-100 transition ease duration-150 rounded-md px-4 py-1 mx-1"
+					:class="{ 'bg-gray-300': activeLogin }"
+					@click="activeLogin = true"
+				>
 					Login
 				</button>
 				<button
 					class="bg-slate-200 hover:bg-slate-100 transition ease duration-150 rounded-md px-4 py-1 mx-1"
+					:class="{ 'bg-gray-300': !activeLogin }"
 					@click="activeLogin = false"
 				>
 					Register

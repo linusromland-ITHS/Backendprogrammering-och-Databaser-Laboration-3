@@ -51,6 +51,8 @@
 				this.loggedIn = response.success;
 				if (response.success) {
 					this.username = response.user.username;
+				} else {
+					this.showLoginForm = true;
 				}
 			},
 			async logout() {
@@ -61,6 +63,7 @@
 				if (response.success) {
 					this.loggedIn = false;
 					this.username = '';
+					this.getUser();
 					toast.success('Logged out successfully');
 				} else {
 					toast.error('Logout failed');
