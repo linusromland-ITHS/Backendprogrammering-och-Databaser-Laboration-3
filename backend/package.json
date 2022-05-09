@@ -7,8 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "eslint .",
         "format": "prettier . --write",
-        "dev": "nodemon main.js",
-        "start": "forever main.js"
+        "dev": "nodemon src/main.js",
+        "start": "forever src/main.js"
     },
     "repository": {
         "type": "git",
