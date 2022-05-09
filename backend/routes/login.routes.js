@@ -14,7 +14,7 @@ router.post(
     checkNotAuthenticated,
     passport.authenticate('local', {
         successRedirect: '/api/user',
-        failureRedirect: '/',
+        failureRedirect: '/api/user',
         failureFlash: true,
     }),
 );
@@ -90,7 +90,10 @@ router.get('/user', (req, res) => {
 router.get('/logout', checkAuthenticated, (req, res) => {
     //removes your session token and logs you out.
     req.logOut();
-    res.redirect('/');
+    res.json({
+        success: true,
+        message: 'Logged out successfully',
+    });
 });
 
 module.exports = router;

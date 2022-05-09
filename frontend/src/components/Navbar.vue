@@ -16,7 +16,9 @@
 						<p class="mx-8 md:mx-2 text-md">
 							Logged in as: <span class="font-semibold">{{ username }}</span>
 						</p>
-						<a href="/api/logout" class="text-lg font-semibold hover:text-slate-300 transition ease duration-150"> Logout </a>
+						<a @click="logout" class="text-lg font-semibold hover:text-slate-300 transition ease duration-150 cursor-pointer">
+							Logout
+						</a>
 					</div>
 				</div>
 			</div>
@@ -25,6 +27,8 @@
 	<LoginForm v-if="showLoginForm" @login="getUser" />
 </template>
 <script>
+	import { useToast } from 'vue-toastification';
+
 	import LoginForm from './LoginForm.vue';
 	export default {
 		name: 'Navbar',
@@ -40,11 +44,26 @@
 		},
 		methods: {
 			async getUser() {
+				this.showLoginForm = false;
+
 				const request = await fetch('/api/user');
 				const response = await request.json();
 				this.loggedIn = response.success;
 				if (response.success) {
 					this.username = response.user.username;
+				}
+			},
+			async logout() {
+				const toast = useToast();
+
+				const request = await fetch('/api/logout');
+				const response = await request.json();
+				if (response.success) {
+					this.loggedIn = false;
+					this.username = '';
+					toast.success('Logged out successfully');
+				} else {
+					toast.error('Logout failed');
 				}
 			},
 		},
