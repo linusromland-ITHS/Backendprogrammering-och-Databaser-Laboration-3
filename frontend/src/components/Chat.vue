@@ -32,7 +32,6 @@
 				const request = await fetch(`/api/message/?roomID=${this.$route.params.roomId}`);
 				const data = await request.json();
 				if (data.success) this.messages = data.messages;
-				console.log(data);
 			},
 			sendMessage() {
 				const message = {
@@ -52,8 +51,6 @@
 		mounted() {
 			this.getMessages();
 			this.getUser();
-
-			console.log(`messages-${this.$route.params.roomId}`);
 
 			this.sockets.subscribe(`messages-${this.$route.params.roomId}`, function (data) {
 				this.messages.push(data);

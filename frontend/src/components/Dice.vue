@@ -1,8 +1,15 @@
 <template>
-	<div>
-		<div>
-			<img :src="dice" alt="dice" v-if="dice" />
-			<button @click="rollDice">Roll Dice</button>
+	<div class="w-full">
+		<div class="w-full flex flex-col items-center">
+			<div class="w-1/4 m-4">
+				<img :src="dice" alt="dice" v-if="dice" />
+			</div>
+			<button
+				class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease duration-150"
+				@click="rollDice"
+			>
+				Roll Dice
+			</button>
 		</div>
 	</div>
 </template>
@@ -23,19 +30,19 @@
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					data: JSON.stringify({
-						roomID: this.$route.params.roomID,
+					body: JSON.stringify({
+						roomID: this.$route.params.roomId,
 					}),
 				});
 
 				const data = await request.json();
-				console.log(data);
 				this.dice = `/dice/dice${data.data.value}.png`;
 			},
 			async getValues() {
-				const request = await fetch('/api/dice');
+				const request = await fetch(`/api/dice/${this.$route.params.roomId}/toplist`);
 				const data = await request.json();
 				this.values = data.values;
+				console.log(data);
 			},
 		},
 		mounted() {
