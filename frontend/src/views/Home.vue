@@ -54,6 +54,13 @@
 		},
 		mounted() {
 			this.getRooms();
+
+			this.sockets.subscribe('getRoom', () => {
+				this.getRooms();
+			});
+		},
+		beforeUnmount() {
+			this.sockets.unsubscribe('getRoom');
 		},
 	};
 </script>

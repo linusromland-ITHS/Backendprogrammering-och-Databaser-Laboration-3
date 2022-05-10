@@ -4,6 +4,7 @@ const passport = require('passport');
 
 //Local Dependencies import
 const userModel = require('../models/user');
+const { emitGetRoom } = require('../routes/socket.routes');
 
 function initializePassport() {
     passport.use(
@@ -21,6 +22,7 @@ function initializePassport() {
             if (!isValid) {
                 return done(null, false, { message: 'Incorrect password.' });
             }
+            emitGetRoom();
             return done(null, user);
         }),
     );

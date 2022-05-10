@@ -28,3 +28,7 @@ exports.socketRoutes = (io) => {
 exports.emitDiceRoll = (roomID, diceRolls) => {
     socketIO.emit(`diceRoll-${roomID}`, diceRolls);
 };
+
+exports.emitGetRoom = () => {
+    socketIO.emit('getRoom');
+};

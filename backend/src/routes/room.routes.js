@@ -4,6 +4,7 @@ const express = require('express');
 //Local Dependencies import
 const roomModel = require('../models/room');
 const userModel = require('../models/user');
+const { emitGetRoom } = require('./socket.routes');
 const { checkAuthenticated } = require('../config/auth');
 
 //Variable declaration
@@ -42,6 +43,7 @@ router.post('/', checkAuthenticated, async (req, res) => {
             name,
             ownerId: req.user.id,
         });
+        emitGetRoom();
         res.json({
             success: true,
             message: 'Room created successfully',
