@@ -11,10 +11,10 @@ const { checkAuthenticated } = require('../config/auth');
 //Variable declaration
 const router = express.Router();
 
-router.get('/:roomId', checkAuthenticated, async (req, res) => {
+router.get('/', checkAuthenticated, async (req, res) => {
     const diceRolls = await diceRollModel.findAll({
         where: {
-            roomId: req.params.roomId,
+            roomId: req.query.roomID,
         },
         include: [userModel],
     });
@@ -24,10 +24,10 @@ router.get('/:roomId', checkAuthenticated, async (req, res) => {
     });
 });
 
-router.get('/:roomId/toplist', checkAuthenticated, async (req, res) => {
+router.get('/:roomID/toplist', checkAuthenticated, async (req, res) => {
     const diceRolls = await diceRollModel.findAll({
         where: {
-            roomId: req.params.roomId,
+            roomId: req.params.roomID,
         },
         include: [userModel],
     });
